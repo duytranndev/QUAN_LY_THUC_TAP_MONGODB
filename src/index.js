@@ -3,7 +3,7 @@ const express = require('express')
 //set up express app
 const app = express()
 //set up port number
-const port = 3000
+const port = process.env.port || 3000
 //set up home router
 const handlebars = require('express-handlebars');
 const bodyParse = require('body-parser')
