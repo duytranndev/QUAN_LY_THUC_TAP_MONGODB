@@ -1,4 +1,3 @@
-const { mutipleMongooseToObject } = require("../../ultil/mongoose");
 const Student = require("../models/Student");
 class StudentController {
   //INDEX
@@ -10,8 +9,8 @@ class StudentController {
       .catch(next);
   }
   show(req, res, next) {
-    var studentID = req.params.id;
-    Student.findOne({ _id: studentID })
+    var slugStudent = req.params.slug;
+    Student.findOne({ slug: slugStudent })
       .then((students) => {
         res.json(students);
       })
@@ -36,6 +35,23 @@ class StudentController {
           message: "Server error. Please try again.",
         });
       });
+  }
+  create(req,res,next){
+    const formData = req.body;
+    const student = new Student(formData);
+    student.save()
+      .then(()=>{
+        res.status(200).json({
+          success: true,
+          message: "Student is created"
+        });
+      })
+      .catch((err)=>{
+        res.status(500).json({
+          success: false,
+          message: "Server error. Please try again.",
+        });
+      })
   }
 
   delete(req, res, next) {
