@@ -12,6 +12,9 @@ const morgan = require("morgan");
 const path = require("path");
 const cors = require("cors");
 const db = require("./db/db");
+const dotenv = require('dotenv')
+dotenv.config()
+
 db.connect();
 
 app.engine(
@@ -31,6 +34,11 @@ app.use(bodyParse.urlencoded({ extended: true }));
 app.use(morgan("combined"));
 app.use(cors());
 //router init
+
+
+ 
+
+
 route(app);
 
 app.listen(port, (reqest, respond) => {
